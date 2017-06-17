@@ -21,5 +21,5 @@ export default new Router({
     }
   ],
   mode: 'history',
-  base: '/'
+  base: '/CKK'
 })
