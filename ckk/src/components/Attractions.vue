@@ -67,7 +67,6 @@ export default {
             .then(response => {
                 this.tableData = response.data.result.records;
                 this.loading = false;
-                console.log(this.tableData);
             }, response => {
                 this.loading = false;
                 this.$notify({
