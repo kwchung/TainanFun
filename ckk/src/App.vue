@@ -1,18 +1,15 @@
 <template>
   <div id="app">
-    <el-menu theme="dark" :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
-      <el-menu-item index="1">Processing Center</el-menu-item>
-      <el-submenu index="2">
-        <template slot="title">Workspace</template>
-        <el-menu-item index="2-1">item one</el-menu-item>
-        <el-menu-item index="2-2">item two</el-menu-item>
-        <el-menu-item index="2-3">item three</el-menu-item>
-      </el-submenu>
-      <el-menu-item index="3">
-        <a href="https://www.ele.me" target="_blank">Orders</a>
-      </el-menu-item>
+    <el-menu theme="dark" :default-active="activeIndex" class="el-menu-demo" mode="horizontal" :router="router">
+      <el-menu-item index="" id="index">臺南好好玩</el-menu-item>
+      <el-menu-item index="attractions">景點</el-menu-item>
+      <el-menu-item index="weather">氣象資訊</el-menu-item>
+      <el-menu-item index="wishlist">願望清單</el-menu-item>
     </el-menu>
     <router-view></router-view>
+    <!--<div class="page-component-up">
+                              <i class="el-icon-caret-top"></i>
+                            </div>-->
   </div>
 </template>
 
@@ -21,13 +18,9 @@ export default {
   name: 'app',
   data() {
     return {
-      activeIndex: '1'
+      activeIndex: 'attractions',
+      router: true
     };
-  },
-  methods: {
-    handleSelect(key, keyPath) {
-      console.log(key, keyPath);
-    }
   }
 }
 </script>
@@ -38,5 +31,35 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
+}
+
+#index {
+  font-size: 24px;
+  color: #13CE66;
+}
+
+.page-component-up {
+  background-color: #58b7ff;
+  position: fixed;
+  right: 100px;
+  bottom: 150px;
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
+  cursor: pointer;
+  opacity: .4;
+  transition: .3s;
+}
+
+.page-component-up:hover {
+  opacity: 1;
+}
+
+.page-component-up i {
+  color: #fff;
+  display: block;
+  line-height: 50px;
+  text-align: center;
+  font-size: 22px;
 }
 </style>
