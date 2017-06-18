@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <el-menu theme="dark" :default-active="activeIndex" class="el-menu-demo" mode="horizontal" :router="router">
-      <el-menu-item index="" id="index">臺南好好玩</el-menu-item>
+      <el-menu-item index="" id="logo">臺南好好玩</el-menu-item>
       <el-menu-item index="attractions">景點</el-menu-item>
       <el-menu-item index="weather">氣象資訊</el-menu-item>
       <el-menu-item index="wishlist">
@@ -44,7 +44,7 @@ export default {
   color: #2c3e50;
 }
 
-#index {
+#logo {
   font-size: 24px;
   color: #13CE66;
 }

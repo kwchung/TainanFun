@@ -1,6 +1,6 @@
 <template>
     <div class="attractions">
-        <el-table v-loading.body="loading" :data="tableData" style="width: 100%" :default-sort="{prop: '名稱', order: 'descending'}">
+        <el-table v-loading.body="loading" :data="tableData" style="width: 100%">
             <el-table-column type="expand">
                 <template scope="props">
                     <h3>
@@ -24,9 +24,9 @@
             <el-table-column label="名稱" prop="名稱"></el-table-column>
             <el-table-column label="開放時間" prop="開放時間"></el-table-column>
             <el-table-column label="門票資訊" prop="門票資訊"></el-table-column>
-            <el-table-column label="門票資訊" prop="門票資訊">
+            <el-table-column>
                 <template scope="scope">
-                    <el-button size="small" type="info" icon="plus" @click="adddToWishlist(scope.$index, scope.row)">加入願望清單</el-button>
+                    <el-button size="small" type="info" icon="plus" @click="addToWishlist(scope.$index, scope.row)">加入願望清單</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -44,7 +44,7 @@ export default {
         }
     },
     methods: {
-        adddToWishlist(index, row) {
+        addToWishlist(index, row) {
             var ans = [];
             var wishlist = localStorage.getItem("wishlist");
             if (wishlist !== null) {
@@ -69,7 +69,12 @@ export default {
                 this.loading = false;
                 console.log(this.tableData);
             }, response => {
-                console.error("get tainan data error!!!");
+                this.loading = false;
+                this.$notify({
+                    title: 'Oops...',
+                    message: '取得景點資訊發生錯誤',
+                    type: 'warning'
+                });
             });
     }
 }
