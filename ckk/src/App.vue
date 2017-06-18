@@ -4,12 +4,13 @@
       <el-menu-item index="" id="index">臺南好好玩</el-menu-item>
       <el-menu-item index="attractions">景點</el-menu-item>
       <el-menu-item index="weather">氣象資訊</el-menu-item>
-      <el-menu-item index="wishlist">願望清單</el-menu-item>
+      <el-menu-item index="wishlist">
+        願望清單
+        <el-badge :value="wishlistBadgeVal" :hidden="isWishlisthidden"></el-badge>
+      </el-menu-item>
     </el-menu>
-    <router-view></router-view>
-    <!--<div class="page-component-up">
-                              <i class="el-icon-caret-top"></i>
-                            </div>-->
+    <router-view :val="wishlistBadgeVal" @wishlistValChanged="wishlistBadgeVal = $event"></router-view>
+    <!--<div class="page-component-up"><i class="el-icon-caret-top"></i></div>-->
   </div>
 </template>
 
@@ -19,8 +20,18 @@ export default {
   data() {
     return {
       activeIndex: 'attractions',
-      router: true
+      router: true,
+      wishlistBadgeVal: 0
     };
+  },
+  computed: {
+    isWishlisthidden() {
+      return !(this.wishlistBadgeVal > 0);
+    }
+  },
+  mounted() {
+    var wl = localStorage.getItem("wishlist");
+    this.wishlistBadgeVal = (wl == null) ? 0 : JSON.parse(wl).length;
   }
 }
 </script>
@@ -36,6 +47,10 @@ export default {
 #index {
   font-size: 24px;
   color: #13CE66;
+}
+
+.el-badge {
+  top: -10px
 }
 
 .page-component-up {

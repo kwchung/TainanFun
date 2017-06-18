@@ -36,6 +36,7 @@
 <script>
 export default {
     name: 'attractions',
+    props: ['val'],
     data() {
         return {
             tableData: [],
@@ -44,7 +45,21 @@ export default {
     },
     methods: {
         adddToWishlist(index, row) {
-            console.log(index, row);
+            var ans = [];
+            var wishlist = localStorage.getItem("wishlist");
+            if (wishlist !== null) {
+                wishlist = JSON.parse(wishlist);
+                if (wishlist.length !== 0) {
+                    ans = wishlist;
+                    ans.push({ index: wishlist.length, location: row });
+                } else {
+                    ans.push({ index: 0, location: row });
+                }
+            } else {
+                ans.push({ index: 0, location: row });
+            }
+            this.$emit('wishlistValChanged', ans.length);
+            localStorage.setItem("wishlist", JSON.stringify(ans));
         }
     },
     mounted() {
