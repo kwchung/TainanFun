@@ -7,7 +7,7 @@
                         <el-input placeholder="請輸入出發地點..." v-model="map.origin"></el-input>
                     </el-col>
                     <el-col :span="24">
-                        <el-table :data="tableData" style="width: 100%">
+                        <el-table :data="tableData" style="width: 100%" empty-text="請前往「景點」頁面新增願望清單">
                             <el-table-column type="index"></el-table-column>
                             <el-table-column label="名稱" prop="location.名稱"></el-table-column>
                             <el-table-column label="順序">
