@@ -23,13 +23,13 @@
                             </el-table-column>
                         </el-table>
                     </el-col>
-                    <el-col :span="6" :offset="18">
-                        <el-button type="success" @click="showMap()">安排行程</el-button>
+                    <el-col :span="24">
+                        <el-button id="proc" type="success" @click="showMap()" :disabled="val==0">安排行程</el-button>
                     </el-col>
                 </el-row>
             </el-col>
-            <el-col :xs="24" :sm="24" :md="15" :lg="15">
-                <iframe width="100%" height="600" frameborder="0" style="border:0" :src="mapSrc" allowfullscreen>
+            <el-col :xs=" 24 " :sm="24 " :md="15 " :lg="15 ">
+                <iframe width="100% " height="600 " frameborder="0 " style="border:0 " :src="mapSrc " allowfullscreen>
                 </iframe>
             </el-col>
         </el-row>
@@ -118,3 +118,19 @@ export default {
 }
 </script>
 
+<style>
+.wishlist {
+    padding-top: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+#proc {
+    float: right;
+}
+
+.el-table,
+.el-input {
+    margin-bottom: 10px;
+}
+</style>
