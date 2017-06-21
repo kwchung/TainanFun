@@ -1314,12 +1314,7 @@ export default {
                 hAxis: {
                     title: 'Time',
                     minValue: '0',
-                    maxValue: '24'
-                },
-                vAxis: {
-                    title: '',
-                    minValue: 0,
-                    maxValue: 40
+                    maxValue: '24',
                 },
                 height: 500,
                 curveType: 'function'
@@ -1331,10 +1326,13 @@ export default {
             var date = w.dt;
             this.options.title = moment(date * 1000).format('MMMDD日') + '每3小時氣象狀況';
             var a = moment(date * 1000).format("YYYY-MM-DD") + " 00:00:00";
-            var b = parseInt(moment(a).add('days', 1).format('X'));
+            var b1 = parseInt(moment(a).add('seconds', -1).format('X'));
+            var b2 = parseInt(moment(a).add('days', 1).format('X'));
             this.rows = [];
             this.hrWeather.forEach(function (element, index, array) {
-                if (element.dt < b) {
+                var aa = moment(element.dt * 1000).format("YYYY-MM-DD HH:mm:ss");
+                var bb = moment(aa).format('X');
+                if (bb > b1 && bb < b2) {
                     var data = [];
                     data[0] = moment(element.dt * 1000).format("HH:mm");
                     data[1] = element.main.temp;
