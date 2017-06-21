@@ -1,2 +1,2 @@
 # CKK
-[Demo](chungkuanwu.me)
+[Demo](http://www.chungkuanwu.me)
