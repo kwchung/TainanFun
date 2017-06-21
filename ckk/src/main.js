@@ -4,17 +4,21 @@ import Vue from 'vue'
 import router from './router'
 import ElementUI from 'element-ui'
 import VueResource from 'vue-resource'
-import 'vue-awesome/icons'
+import VueMoment from 'vue-moment'
+import VueChart from 'vue-charts'
+import 'moment/locale/zh-tw'
 import Icon from 'vue-awesome/components/Icon'
+import 'vue-awesome/icons'
 import 'element-ui/lib/theme-default/index.css'
 import App from './App'
 
 Vue.config.productionTip = false
 Vue.use(ElementUI)
 Vue.use(VueResource)
+Vue.use(VueMoment)
+Vue.use(VueChart)
 Vue.component('icon', Icon)
 
-/* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,

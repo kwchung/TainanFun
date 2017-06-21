@@ -44,6 +44,12 @@ export default {
   color: #2c3e50;
 }
 
+.container {
+  padding-top: 15px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
 #logo {
   font-size: 24px;
   color: #13CE66;

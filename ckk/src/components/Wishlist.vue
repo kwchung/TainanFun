@@ -1,5 +1,5 @@
 <template>
-    <div class="wishlist">
+    <div class="wishlist container">
         <el-row :gutter="20">
             <el-col :xs="24" :sm="24" :md="9" :lg="9">
                 <el-row>
@@ -119,12 +119,6 @@ export default {
 </script>
 
 <style>
-.wishlist {
-    padding-top: 15px;
-    padding-left: 15px;
-    padding-right: 15px;
-}
-
 #proc {
     float: right;
 }
