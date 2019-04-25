@@ -30,5 +30,5 @@ export default new Router({
   }
   ],
   mode: 'history',
-  base: '/CKK'
+  base: '/TainanFun'
 })
