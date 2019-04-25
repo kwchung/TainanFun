@@ -1,27 +1,38 @@
 <template>
     <div class="attractions">
-        <el-table v-loading.body="loading" :data="tableData" style="width: 100%">
+        <el-table v-loading.body="loading" :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))" style="width: 100%">
             <el-table-column type="expand">
                 <template scope="props">
                     <h3>
-                        <icon name="flag"></icon> 介紹
+                        <i class="el-icon-discover"></i> 介紹
                     </h3>
                     <p v-html="props.row.introduction"></p>
+                    <p><el-tag v-for="item in props.row.category" type="warning">{{ item }}</el-tag></p>
                     <h3>
-                        <icon name="map-marker"></icon> 地址
+                        <i class="el-icon-location-information"></i> 地址
                     </h3>
                     <p>{{ props.row.address }}</p>
                     <h3>
-                        <icon name="phone"></icon> 電話
+                        <i class="el-icon-phone-outline"></i> 電話
                     </h3>
                     <p>{{ props.row.tel }}</p>
+                    <h3 v-if="props.row.services.length > 0">
+                        <i class="el-icon-star-off"></i> 服務
+                    </h3>
+                    <p v-if="props.row.services.length > 0"><el-tag v-for="item in props.row.services">{{ item }}</el-tag></p>
                 </template>
             </el-table-column>
             <el-table-column label="名稱" prop="name"></el-table-column>
             <el-table-column label="開放時間" prop="open_time"></el-table-column>
             <el-table-column>
+                <template slot="header" slot-scope="scope">
+                    <el-input
+                    v-model="search"
+                    prefix-icon="el-icon-search"
+                    placeholder="輸入關鍵字搜尋"/>
+                </template>
                 <template scope="scope">
-                    <el-button size="small" type="info" icon="plus" @click="addToWishlist(scope.$index, scope.row)">加入願望清單</el-button>
+                    <el-button size="small" type="primary" icon="el-icon-plus" @click="addToWishlist(scope.$index, scope.row)">加入願望清單</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -35,7 +46,8 @@ export default {
     data() {
         return {
             tableData: [],
-            loading: true
+            loading: true,
+            search: '德元埤荷蘭村'
         }
     },
     methods: {
@@ -78,3 +90,9 @@ export default {
     }
 }
 </script>
+
+<style>
+.el-tag {
+    margin-left: 10px !important;
+}
+</style>

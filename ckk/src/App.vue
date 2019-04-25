@@ -1,6 +1,13 @@
 <template>
   <div id="app">
-    <el-menu theme="dark" :default-active="activeIndex" class="el-menu-demo" mode="horizontal" :router="router">
+    <el-menu
+      :default-active="activeIndex"
+      class="el-menu-demo"
+      mode="horizontal"
+      background-color="#2c3e50"
+      text-color="#fff"
+      active-text-color="#58b7ff"
+      :router="router">
       <el-menu-item index="" id="logo">臺南好好玩</el-menu-item>
       <el-menu-item index="attractions">景點</el-menu-item>
       <el-menu-item index="weather">氣象資訊</el-menu-item>
@@ -52,7 +59,7 @@ export default {
 
 #logo {
   font-size: 24px;
-  color: #13CE66;
+  color: #13CE66 !important;
 }
 
 .el-badge {

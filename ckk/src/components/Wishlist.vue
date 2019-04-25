@@ -12,19 +12,19 @@
                             <el-table-column label="名稱" prop="location.name"></el-table-column>
                             <el-table-column label="順序">
                                 <template scope="scope">
-                                    <el-button size="small" type="info" icon="caret-top" @click="upWishlist(scope.$index)"></el-button>
-                                    <el-button size="small" type="info" icon="caret-bottom" @click="downWishlist(scope.$index)"></el-button>
+                                    <el-button size="mini" type="primary" icon="el-icon-arrow-up" @click="upWishlist(scope.$index)"></el-button>
+                                    <el-button size="mini" type="primary" icon="el-icon-arrow-down" @click="downWishlist(scope.$index)"></el-button>
                                 </template>
                             </el-table-column>
                             <el-table-column label="移除">
                                 <template scope="scope">
-                                    <el-button size="small" type="danger" icon="minus" @click="deleteFromWishlist(scope.$index)">從願望清單移除</el-button>
+                                    <el-button size="small" type="danger" icon="el-icon-minus" @click="deleteFromWishlist(scope.$index)">從願望清單移除</el-button>
                                 </template>
                             </el-table-column>
                         </el-table>
                     </el-col>
                     <el-col :span="24">
-                        <el-button id="proc" type="success" @click="showMap()" :disabled="val==0">安排行程</el-button>
+                        <el-button id="proc" type="success" @click="showMap()" icon="el-icon-position" :disabled="val==0">安排行程</el-button>
                     </el-col>
                 </el-row>
             </el-col>
