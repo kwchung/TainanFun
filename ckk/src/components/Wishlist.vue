@@ -9,7 +9,7 @@
                     <el-col :span="24">
                         <el-table :data="tableData" style="width: 100%" empty-text="請前往「景點」頁面新增願望清單">
                             <el-table-column type="index"></el-table-column>
-                            <el-table-column label="名稱" prop="location.名稱"></el-table-column>
+                            <el-table-column label="名稱" prop="location.name"></el-table-column>
                             <el-table-column label="順序">
                                 <template scope="scope">
                                     <el-button size="small" type="info" icon="caret-top" @click="upWishlist(scope.$index)"></el-button>

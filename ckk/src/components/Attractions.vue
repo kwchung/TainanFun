@@ -6,24 +6,19 @@
                     <h3>
                         <icon name="flag"></icon> 介紹
                     </h3>
-                    <p v-html="props.row.介紹"></p>
-                    <h3>
-                        <icon name="car"></icon> 交通服務
-                    </h3>
-                    <p>{{ props.row.交通服務 }}</p>
+                    <p v-html="props.row.introduction"></p>
                     <h3>
                         <icon name="map-marker"></icon> 地址
                     </h3>
-                    <p>{{ props.row.地址 }}</p>
+                    <p>{{ props.row.address }}</p>
                     <h3>
                         <icon name="phone"></icon> 電話
                     </h3>
-                    <p>{{ props.row.電話 }}</p>
+                    <p>{{ props.row.tel }}</p>
                 </template>
             </el-table-column>
-            <el-table-column label="名稱" prop="名稱"></el-table-column>
-            <el-table-column label="開放時間" prop="開放時間"></el-table-column>
-            <el-table-column label="門票資訊" prop="門票資訊"></el-table-column>
+            <el-table-column label="名稱" prop="name"></el-table-column>
+            <el-table-column label="開放時間" prop="open_time"></el-table-column>
             <el-table-column>
                 <template scope="scope">
                     <el-button size="small" type="info" icon="plus" @click="addToWishlist(scope.$index, scope.row)">加入願望清單</el-button>
@@ -63,9 +58,14 @@ export default {
         }
     },
     mounted() {
-        this.$http.get('http://data.tainan.gov.tw/api/action/datastore_search?resource_id=7442fe75-c23b-4826-8416-5982fbdcf912&q=zh-tw&limit=700')
+        // https://data.tainan.gov.tw/dataset/landmark2
+
+        // let path = 'https://www.twtainan.net/data/attractions_zh-tw.json'
+        let path = '/static/attraction_zh-tw.json'
+        this.$http.get(path)
             .then(response => {
-                this.tableData = response.data.result.records;
+                console.log(response.data)
+                this.tableData = response.data;
                 this.loading = false;
             }, response => {
                 this.loading = false;
