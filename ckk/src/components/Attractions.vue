@@ -40,6 +40,8 @@
 </template>
 
 <script>
+import attraction from '../assets/attraction_zh-tw.json'
+
 export default {
     name: 'attractions',
     props: ['val'],
@@ -47,7 +49,7 @@ export default {
         return {
             tableData: [],
             loading: true,
-            search: '德元埤荷蘭村'
+            search: ''
         }
     },
     methods: {
@@ -73,20 +75,22 @@ export default {
         // https://data.tainan.gov.tw/dataset/landmark2
 
         // let path = 'https://www.twtainan.net/data/attractions_zh-tw.json'
-        let path = '/static/attraction_zh-tw.json'
-        this.$http.get(path)
-            .then(response => {
-                console.log(response.data)
-                this.tableData = response.data;
-                this.loading = false;
-            }, response => {
-                this.loading = false;
-                this.$notify({
-                    title: 'Oops...',
-                    message: '取得景點資訊發生錯誤',
-                    type: 'warning'
-                });
-            });
+        // let path = '../assets/attraction_zh-tw.json'
+        // this.$http.get(path)
+        //     .then(response => {
+        //         console.log(response.data)
+        //         this.tableData = response.data;
+        //         this.loading = false;
+        //     }, response => {
+        //         this.loading = false;
+        //         this.$notify({
+        //             title: 'Oops...',
+        //             message: '取得景點資訊發生錯誤',
+        //             type: 'warning'
+        //         });
+        //     });
+        this.tableData = attraction;
+        this.loading = false;
     }
 }
 </script>
