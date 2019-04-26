@@ -1346,7 +1346,7 @@ export default {
     mounted() {
 
         this.fullscreenLoading = true;
-        let mainurl = 'http://api.openweathermap.org/data/2.5/forecast';
+        let mainurl = 'https://api.openweathermap.org/data/2.5/forecast';
         let cityid = '1668355'; // Tainan,TW
         let appid = '5c9478d7e21a087ab90b967031161357';
 
