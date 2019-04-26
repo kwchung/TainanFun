@@ -1335,7 +1335,7 @@ export default {
                 if (bb > b1 && bb < b2) {
                     var data = [];
                     data[0] = moment(element.dt * 1000).format("HH:mm");
-                    data[1] = element.main.temp;
+                    data[1] = element.temp;
                     data[2] = element.rain['3h'];
                     this.rows.push(data);
                 }
@@ -1346,8 +1346,12 @@ export default {
     mounted() {
 
         this.fullscreenLoading = true;
+        let mainurl = 'http://api.openweathermap.org/data/2.5/forecast';
+        let cityid = '1668355'; // Tainan,TW
+        let appid = '5c9478d7e21a087ab90b967031161357';
+
         // 6Days / 1Day
-        this.$http.get('http://api.openweathermap.org/data/2.5/forecast/daily?id=1668352&appid=8ef0ae69eb5a0dad29a107d4e24a9934&mode=json&units=metric&lang=zh_tw&cnt=5')
+        this.$http.get(`${mainurl}/daily?id=${cityid}&appid=${appid}&mode=json&units=metric&lang=zh_tw&cnt=5`)
             .then(response => {
                 this.dailyWeather = response.data.list;
             }, response => {
@@ -1357,9 +1361,12 @@ export default {
                     type: 'warning'
                 });
             }, { dataType: 'json' });
+
         // 5Day / 3hr
-        this.$http.get('http://api.openweathermap.org/data/2.5/forecast?id=1668352&appid=8ef0ae69eb5a0dad29a107d4e24a9934&mode=json&units=metric&lang=zh_tw')
+        this.$http.get(`${mainurl}?id=${cityid}&appid=${appid}&mode=json&units=metric&lang=zh_tw`)
             .then(response => {
+                console.log('5d3H')
+                console.log(response.data.list)
                 this.hrWeather = response.data.list;
                 this.fullscreenLoading = false;
             }, response => {

@@ -70,11 +70,11 @@ export default {
             this.map.mapOrigin += "臺南+" + this.map.origin;
             this.tableData.forEach(function (element, index, array) {
                 if (index !== this.tableData.length - 1) {
-                    this.map.mapWaypoints += "臺南+" + element.location.名稱 + '|';
+                    this.map.mapWaypoints += "臺南+" + element.location.name + '|';
                 }
             }, this);
             this.map.mapWaypoints = this.map.mapWaypoints.slice(0, -1);
-            this.map.mapDestination += "臺南+" + this.tableData[this.tableData.length - 1].location.名稱;
+            this.map.mapDestination += "臺南+" + this.tableData[this.tableData.length - 1].location.name;
             this.map.show = true;
         },
         upWishlist(_index) {
