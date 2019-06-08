@@ -37,14 +37,16 @@
 </template>
 
 <script>
+import {GOOGLE_API_KEY} from '../apiKey.json';
+
 export default {
     name: 'wishlist',
     props: ['val'],
     data() {
         return {
             map: {
-                mapView: 'https://www.google.com/maps/embed/v1/view?key=AIzaSyCbcuNUFkOg_YFyz7lYf1y8Y7692XLLWKo&center=23.58,120.59&zoom=7&maptype=satellite',
-                mapEndPoint: 'https://www.google.com/maps/embed/v1/directions?key=AIzaSyCbcuNUFkOg_YFyz7lYf1y8Y7692XLLWKo',
+                mapView: `https://www.google.com/maps/embed/v1/view?key=${GOOGLE_API_KEY}&center=23.58,120.59&zoom=7&maptype=satellite`,
+                mapEndPoint: `https://www.google.com/maps/embed/v1/directions?key=${GOOGLE_API_KEY}`,
                 origin: '',
                 mapOrigin: '&origin=',
                 mapWaypoints: '&waypoints=',
