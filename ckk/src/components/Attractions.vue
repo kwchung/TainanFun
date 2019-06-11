@@ -1,102 +1,136 @@
 <template>
-    <div class="attractions">
-        <el-table v-loading.body="loading" :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))" style="width: 100%">
-            <el-table-column type="expand">
-                <template scope="props">
-                    <h3>
-                        <i class="el-icon-discover"></i> 介紹
-                    </h3>
-                    <p v-html="props.row.introduction"></p>
-                    <p><el-tag v-for="item in props.row.category" type="warning">{{ item }}</el-tag></p>
-                    <h3>
-                        <i class="el-icon-location-information"></i> 地址
-                    </h3>
-                    <p>{{ props.row.address }}</p>
-                    <h3>
-                        <i class="el-icon-phone-outline"></i> 電話
-                    </h3>
-                    <p>{{ props.row.tel }}</p>
-                    <h3 v-if="props.row.services.length > 0">
-                        <i class="el-icon-star-off"></i> 服務
-                    </h3>
-                    <p v-if="props.row.services.length > 0"><el-tag v-for="item in props.row.services">{{ item }}</el-tag></p>
-                </template>
-            </el-table-column>
-            <el-table-column label="名稱" prop="name"></el-table-column>
-            <el-table-column label="開放時間" prop="open_time"></el-table-column>
-            <el-table-column>
-                <template slot="header" slot-scope="scope">
-                    <el-input
-                    v-model="search"
-                    prefix-icon="el-icon-search"
-                    placeholder="輸入關鍵字搜尋"/>
-                </template>
-                <template scope="scope">
-                    <el-button size="small" type="primary" icon="el-icon-plus" @click="addToWishlist(scope.$index, scope.row)">加入願望清單</el-button>
-                </template>
-            </el-table-column>
-        </el-table>
-    </div>
+  <div>
+    <v-list>
+      <v-list-tile avatar v-for="(item, i) in tableData" :key="i">
+        <v-list-tile-avatar>
+          <v-btn icon ripple>
+            <v-icon color="success" @click="addToWishlist(item)">add</v-icon>
+          </v-btn>
+        </v-list-tile-avatar>
+        <v-list-tile-content @click="openDialog(item)">
+          <v-list-tile-title>{{ item.name }}</v-list-tile-title>
+        </v-list-tile-content>
+        <v-list-tile-action>
+          <v-icon color="gray">chevron_right</v-icon>
+        </v-list-tile-action>
+      </v-list-tile>
+    </v-list>
+    <v-dialog
+      v-model="dialog"
+      scrollable
+      fullscreen
+      hide-overlay
+      transition="slide-x-reverse-transition"
+    >
+      <v-card>
+        <v-toolbar dark color="primary">
+          <v-btn icon dark @click="dialog = false">
+            <v-icon>arrow_back</v-icon>
+          </v-btn>
+          <v-toolbar-title>{{ dialogData.name }}</v-toolbar-title>
+          <v-spacer></v-spacer>
+          <v-toolbar-items>
+            <v-btn  color="success" icon depressed>
+              <v-icon @click="addToWishlist(dialogData)">add</v-icon>
+            </v-btn>
+          </v-toolbar-items>
+        </v-toolbar>
+        <v-card-text style="height: calc(100% - 56px - 56px)">
+          <h3>
+            <v-icon>info</v-icon>介紹
+          </h3>
+          <p v-html="dialogData.introduction"></p>
+          <p>
+            <v-chip v-for="(c, ci) in dialogData.category" :key="ci" type="orange">{{ c }}</v-chip>
+          </p>
+          <h3>
+            <v-icon>access_time</v-icon> 開放時間
+          </h3>
+          <p>{{ dialogData.open_time }}</p>
+          <h3>
+            <v-icon>location_searching</v-icon> 地址
+          </h3>
+          <p>{{ dialogData.address }}</p>
+          <h3>
+            <v-icon>phone</v-icon> 電話
+          </h3>
+          <p>{{ dialogData.tel }}</p>
+          <h3 v-if="typeof dialogData.services != 'undefined'">
+            <v-icon>star</v-icon> 服務
+          </h3>
+          <p v-if="typeof dialogData.services != 'undefined'">
+            <v-chip v-for="(s, si) in dialogData.services" :key="si">{{ s }}</v-chip>
+          </p>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
+  </div>
 </template>
 
 <script>
-import attraction from '../assets/attraction_zh-tw.json'
+import attraction from "../assets/attraction_zh-tw.json";
 
 export default {
-    name: 'attractions',
-    props: ['val'],
-    data() {
-        return {
-            tableData: [],
-            loading: true,
-            search: ''
-        }
+  name: "attractions",
+  props: ["val"],
+  data() {
+    return {
+      tableData: [],
+      dialogData: "",
+      loading: true,
+      dialog: false,
+      search: ""
+    };
+  },
+  methods: {
+    openDialog(item) {
+      this.dialog = true;
+      this.dialogData = item;
     },
-    methods: {
-        addToWishlist(index, row) {
-            var ans = [];
-            var wishlist = localStorage.getItem("wishlist");
-            if (wishlist !== null) {
-                wishlist = JSON.parse(wishlist);
-                if (wishlist.length !== 0) {
-                    ans = wishlist;
-                    ans.push({ index: wishlist.length, location: row });
-                } else {
-                    ans.push({ index: 0, location: row });
-                }
-            } else {
-                ans.push({ index: 0, location: row });
-            }
-            this.$emit('wishlistValChanged', ans.length);
-            localStorage.setItem("wishlist", JSON.stringify(ans));
+    addToWishlist(row) {
+      var ans = [];
+      var wishlist = localStorage.getItem("wishlist");
+      if (wishlist !== null) {
+        wishlist = JSON.parse(wishlist);
+        if (wishlist.length !== 0) {
+          ans = wishlist;
+          ans.push({ index: wishlist.length, location: row });
+        } else {
+          ans.push({ index: 0, location: row });
         }
-    },
-    mounted() {
-        // https://data.tainan.gov.tw/dataset/landmark2
-
-        // let path = 'https://www.twtainan.net/data/attractions_zh-tw.json'
-        // let path = '../assets/attraction_zh-tw.json'
-        // this.$http.get(path)
-        //     .then(response => {
-        //         console.log(response.data)
-        //         this.tableData = response.data;
-        //         this.loading = false;
-        //     }, response => {
-        //         this.loading = false;
-        //         this.$notify({
-        //             title: 'Oops...',
-        //             message: '取得景點資訊發生錯誤',
-        //             type: 'warning'
-        //         });
-        //     });
-        this.tableData = attraction;
-        this.loading = false;
+      } else {
+        ans.push({ index: 0, location: row });
+      }
+      this.$emit("wishlistValChanged", ans.length);
+      localStorage.setItem("wishlist", JSON.stringify(ans));
     }
-}
+  },
+  mounted() {
+    // https://data.tainan.gov.tw/dataset/landmark2
+
+    // let path = 'https://www.twtainan.net/data/attractions_zh-tw.json'
+    // let path = '../assets/attraction_zh-tw.json'
+    // this.$http.get(path)
+    //     .then(response => {
+    //         console.log(response.data)
+    //         this.tableData = response.data;
+    //         this.loading = false;
+    //     }, response => {
+    //         this.loading = false;
+    //         this.$notify({
+    //             title: 'Oops...',
+    //             message: '取得景點資訊發生錯誤',
+    //             type: 'warning'
+    //         });
+    //     });
+    this.tableData = attraction;
+    this.loading = false;
+  }
+};
 </script>
 
 <style>
-.el-tag {
-    margin-left: 10px !important;
+.v-dialog__content--active {
+  z-index: 3 !important;
 }
 </style>
