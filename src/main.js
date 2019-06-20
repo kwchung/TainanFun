@@ -13,7 +13,7 @@ Vue.config.productionTip = false;
 Vue.prototype.$http = axios;
 Vue.use(Vuetify, {
   iconfont: 'fa',
- });
+});
 Vue.use(VueMoment);
 
 new Vue({

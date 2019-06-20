@@ -9,7 +9,7 @@
       <v-list dense>
         <v-list-tile>
           <v-list-tile-action>
-            <v-icon>location_on</v-icon>
+            <v-icon>far fa-map</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
             <v-list-tile-title>景點</v-list-tile-title>
@@ -27,25 +27,31 @@
     </v-navigation-drawer>
     <v-content>
       <v-container fluid>
-        <router-view :val="wishlistBadgeVal" @wishlistValChanged="wishlistBadgeVal = $event"></router-view>
+        <router-view
+          :val="wishlistBadgeVal"
+          @wishlistValChanged="wishlistBadgeVal = $event">
+        </router-view>
       </v-container>
     </v-content>
     <v-card height="56px" flat>
       <v-bottom-nav :active.sync="bottomNav" :value="true" fixed>
         <v-btn color="teal" flat value="attractions" to="attractions">
           <span>景點</span>
-          <v-icon>location_on</v-icon>
+          <v-icon>far fa-map</v-icon>
         </v-btn>
 
         <v-btn color="teal" flat value="weather" to="weather">
           <span>氣象資訊</span>
-          <v-icon>wb_sunny</v-icon>
+          <v-icon>far fa-sun</v-icon>
         </v-btn>
 
         <v-btn color="teal" flat value="wishlist" to="wishlist">
           <span>願望清單</span>
-          <v-icon>favorite</v-icon>
-          <v-badge v-if="wishlistBadgeVal > 0" color="red" style="position:absolute; right:30%; top:15%;">
+          <v-icon>far fa-heart</v-icon>
+          <v-badge
+            v-if="wishlistBadgeVal > 0"
+            color="red"
+            style="position:absolute; right:30%; top:15%;">
             <template v-slot:badge>
               <span>{{ wishlistBadgeVal }}</span>
             </template>
@@ -61,20 +67,20 @@ export default {
   data: () => ({
     drawer: null,
     wishlistBadgeVal: 0,
-    bottomNav: 'attractions'
+    bottomNav: 'attractions',
   }),
   props: {
-    source: String
+    source: String,
   },
   computed: {
     isWishlisthidden() {
       return !(this.wishlistBadgeVal > 0);
-    }
+    },
   },
   mounted() {
-    var wl = localStorage.getItem("wishlist");
+    const wl = localStorage.getItem('wishlist');
     this.wishlistBadgeVal = wl == null ? 0 : JSON.parse(wl).length;
-  }
+  },
 };
 </script>
 

@@ -4,14 +4,14 @@
       <v-list-tile avatar v-for="(item, i) in tableData" :key="i">
         <v-list-tile-avatar>
           <v-btn icon ripple>
-            <v-icon color="success" @click="addToWishlist(item)">add</v-icon>
+            <v-icon color="success" @click="addToWishlist(item)">fa-plus</v-icon>
           </v-btn>
         </v-list-tile-avatar>
         <v-list-tile-content @click="openDialog(item)">
           <v-list-tile-title>{{ item.name }}</v-list-tile-title>
         </v-list-tile-content>
         <v-list-tile-action>
-          <v-icon color="gray">chevron_right</v-icon>
+          <v-icon color="gray">fa-chevron-right</v-icon>
         </v-list-tile-action>
       </v-list-tile>
     </v-list>
@@ -25,38 +25,38 @@
       <v-card>
         <v-toolbar dark color="primary">
           <v-btn icon dark @click="dialog = false">
-            <v-icon>arrow_back</v-icon>
+            <v-icon>fa-arrow-left</v-icon>
           </v-btn>
           <v-toolbar-title>{{ dialogData.name }}</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-toolbar-items>
-            <v-btn  color="success" icon depressed>
-              <v-icon @click="addToWishlist(dialogData)">add</v-icon>
+            <v-btn color="success" icon depressed>
+              <v-icon @click="addToWishlist(dialogData)">fa-plus</v-icon>
             </v-btn>
           </v-toolbar-items>
         </v-toolbar>
         <v-card-text style="height: calc(100% - 56px - 56px)">
           <h3>
-            <v-icon>info</v-icon>介紹
+            <v-icon>fa-info-circle</v-icon> 介紹
           </h3>
           <p v-html="dialogData.introduction"></p>
           <p>
             <v-chip v-for="(c, ci) in dialogData.category" :key="ci" type="orange">{{ c }}</v-chip>
           </p>
           <h3>
-            <v-icon>access_time</v-icon> 開放時間
+            <v-icon>far fa-clock</v-icon> 開放時間
           </h3>
           <p>{{ dialogData.open_time }}</p>
           <h3>
-            <v-icon>location_searching</v-icon> 地址
+            <v-icon>fa-map-marker-alt</v-icon> 地址
           </h3>
           <p>{{ dialogData.address }}</p>
           <h3>
-            <v-icon>phone</v-icon> 電話
+            <v-icon>fa-phone-alt</v-icon> 電話
           </h3>
           <p>{{ dialogData.tel }}</p>
           <h3 v-if="typeof dialogData.services != 'undefined'">
-            <v-icon>star</v-icon> 服務
+            <v-icon>far fa-star</v-icon> 服務
           </h3>
           <p v-if="typeof dialogData.services != 'undefined'">
             <v-chip v-for="(s, si) in dialogData.services" :key="si">{{ s }}</v-chip>
@@ -68,18 +68,18 @@
 </template>
 
 <script>
-import attraction from "../assets/attraction_zh-tw.json";
+import attraction from '../assets/attraction_zh-tw.json';
 
 export default {
-  name: "attractions",
-  props: ["val"],
+  name: 'attractions',
+  props: ['val'],
   data() {
     return {
       tableData: [],
-      dialogData: "",
+      dialogData: '',
       loading: true,
       dialog: false,
-      search: ""
+      search: '',
     };
   },
   methods: {
@@ -88,8 +88,8 @@ export default {
       this.dialogData = item;
     },
     addToWishlist(row) {
-      var ans = [];
-      var wishlist = localStorage.getItem("wishlist");
+      let ans = [];
+      let wishlist = localStorage.getItem('wishlist');
       if (wishlist !== null) {
         wishlist = JSON.parse(wishlist);
         if (wishlist.length !== 0) {
@@ -101,9 +101,9 @@ export default {
       } else {
         ans.push({ index: 0, location: row });
       }
-      this.$emit("wishlistValChanged", ans.length);
-      localStorage.setItem("wishlist", JSON.stringify(ans));
-    }
+      this.$emit('wishlistValChanged', ans.length);
+      localStorage.setItem('wishlist', JSON.stringify(ans));
+    },
   },
   mounted() {
     // https://data.tainan.gov.tw/dataset/landmark2
@@ -125,7 +125,7 @@ export default {
     //     });
     this.tableData = attraction;
     this.loading = false;
-  }
+  },
 };
 </script>
 
