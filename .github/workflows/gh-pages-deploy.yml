@@ -1,0 +1,39 @@
+name: Deploy to github pages
+on:
+  push:
+    branches:
+      - master
+jobs:
+  gh-pages-deploy:
+    name: Deploying to gh-pages
+    env:
+      MY_SECRET: ${{secrets.COMMIT_SECRET}}
+      USER_NAME: Chung, Kaun-Wu
+      USER_EMAIL: kaunwu.chung@gmail.com
+      PUBLISH_DIR: ./dist
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Node.js for use with actions
+        uses: actions/setup-node@v1
+        with:
+          version: 12.x
+
+      - name: Checkout branch
+        uses: actions/checkout@v2
+
+      - name: Build
+        run: npm run build
+
+      - name: Run deploy script
+        run: |
+          cd $PUBLISH_DIR
+          git init
+          git config --local user.name $USER_NAME
+          git config --local user.email $USER_EMAIL
+          git status
+          git remote add origin https://kwchung@github.com/TainanFun.git
+          git checkout -b gh-pages
+          git add --all
+          git commit -m "deploy to Github pages"
+          git push origin gh-pages -f
+          echo 🤘 deploy gh-pages complete.

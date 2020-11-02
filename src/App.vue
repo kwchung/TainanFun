@@ -1,11 +1,11 @@
 <template>
   <v-app id="inspire">
     <v-toolbar color="#2c3e50" dark fixed app>
-      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+      <!-- <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon> -->
       <v-toolbar-title color="#58b7ff">臺南好好玩</v-toolbar-title>
       <v-spacer></v-spacer>
     </v-toolbar>
-    <v-navigation-drawer v-model="drawer" fixed app>
+    <!-- <v-navigation-drawer v-model="drawer" fixed app>
       <v-list dense>
         <v-list-tile>
           <v-list-tile-action>
@@ -24,7 +24,7 @@
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
-    </v-navigation-drawer>
+    </v-navigation-drawer> -->
     <v-content>
       <v-container fluid>
         <router-view
