@@ -49,7 +49,6 @@ export default {
           },
         ],
       },
-      fullscreenLoading: false,
       dailyWeather: [
         // {
         //   dt: 1497931200,
@@ -380,7 +379,6 @@ export default {
   },
   methods: {
     getWeatherDetail(w) {
-      console.log(w);
       const date = w.dt;
       const a = `${moment(date * 1000).format('YYYY-MM-DD')} 00:00:00`;
       const b1 = parseInt(moment(a).add(-1, 'seconds').format('X'));
@@ -388,19 +386,35 @@ export default {
       const labels = [];
       const datasets = [
         {
+          label: `${moment(date * 1000).format('MM月DD日')}每3小時氣溫(℃)`,
+          backgroundColor: 'rgba(0, 0, 0, 0.2)',
+          yAxisID: 'temp',
           data: [],
-          label: `${moment(date * 1000).format('MM月DD日')}每3小時氣溫(℃)`
+        },
+        {
+          label: `${moment(date * 1000).format('MM月DD日')}每3小時降雨量(mm)`,
+          backgroundColor: 'rgba(12, 71, 161, 0.2)',
+          yAxisID: 'rain',
+          data: [],
         }
       ];
       this.hrWeather.forEach(function (element, index, array) {
         const aa = moment(element.dt * 1000).format('YYYY-MM-DD HH:mm:ss');
         const bb = moment(aa).format('X');
         if (bb > b1 && bb < b2) {
+          console.log(element);
           labels.push(moment(element.dt * 1000).format('HH:mm'));
           datasets[0].data.push(element.main.temp);
+          if (element.rain) {
+            datasets[1].data.push(element.rain["3h"]);
+          }
+          else{
+            datasets[1].data.push(0);
+          }
         }
       }, this);
 
+      // https://github.com/apertureless/vue-chartjs/issues/615#issuecomment-650195528
       this.chartData = {
         labels,
         datasets
