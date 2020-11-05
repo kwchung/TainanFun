@@ -426,7 +426,7 @@ export default {
     this.fullscreenLoading = true;
     const mainurl = 'https://api.openweathermap.org/data/2.5/forecast';
     const cityid = '1668355'; // Tainan,TW
-    const appid = '5c9478d7e21a087ab90b967031161357';
+    const appid = process.env.VUE_APP_WEATHER_APPID;
 
     // 6Days / 1Day
     this.$http.get(`${mainurl}/daily?id=${cityid}&appid=${appid}&mode=json&units=metric&lang=zh_tw&cnt=6`)

@@ -55,8 +55,8 @@ export default {
   data() {
     return {
       map: {
-        mapView: `https://www.google.com/maps/embed/v1/view?key=AIzaSyCZ65P2lF5K1hX0jbN3R-O6HFvMkr-R5Pc&center=23.58,120.59&zoom=7&maptype=satellite`,
-        mapEndPoint: `https://www.google.com/maps/embed/v1/directions?key=AIzaSyCZ65P2lF5K1hX0jbN3R-O6HFvMkr-R5Pc`,
+        mapView: `https://www.google.com/maps/embed/v1/view?key=${process.env.VUE_APP_GOOGLE_API_KEY}&center=23.58,120.59&zoom=7&maptype=satellite`,
+        mapEndPoint: `https://www.google.com/maps/embed/v1/directions?key=${process.env.VUE_APP_GOOGLE_API_KEY}`,
         origin: '',
         mapOrigin: '&origin=',
         mapWaypoints: '&waypoints=',

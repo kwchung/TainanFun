@@ -11,6 +11,8 @@ jobs:
       USER_NAME: Chung, Kaun-Wu
       USER_EMAIL: kaunwu.chung@gmail.com
       PUBLISH_DIR: ./dist
+      VUE_APP_GOOGLE_API_KEY: ${{secrets.VUE_APP_GOOGLE_API_KEY}}
+      VUE_APP_WEATHER_APPID: ${{secrets.VUE_APP_WEATHER_APPID}}
     runs-on: ubuntu-latest
 
     steps:
